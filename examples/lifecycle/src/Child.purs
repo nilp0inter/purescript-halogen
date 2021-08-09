@@ -33,13 +33,11 @@ child initialState =
   H.mkComponent
     { initialState: const initialState
     , render
-    , eval: H.mkEval
-        ( H.defaultEval
-            { handleAction = handleAction
-            , initialize = Just Initialize
-            , finalize = Just Finalize
-            }
-        )
+    , eval: H.mkEval $ H.defaultEval
+        { handleAction = handleAction
+        , initialize = Just Initialize
+        , finalize = Just Finalize
+        }
     }
   where
   render :: Int -> H.ComponentHTML Action ChildSlots Aff
@@ -78,13 +76,11 @@ cell initialState =
   H.mkComponent
     { initialState: const initialState
     , render
-    , eval: H.mkEval
-        ( H.defaultEval
-            { handleAction = handleAction
-            , initialize = Just Initialize
-            , finalize = Just Finalize
-            }
-        )
+    , eval: H.mkEval $ H.defaultEval
+        { handleAction = handleAction
+        , initialize = Just Initialize
+        , finalize = Just Finalize
+        }
     }
   where
 
@@ -101,6 +97,6 @@ cell initialState =
     id <- H.get
     H.liftEffect $ log ("Finalize Cell " <> show id)
     H.raise Finalized
-  handleAction (Report msg) =
+  handleAction (Report _) =
     -- A `cell` doesn't have children, so cannot listen and `Report`.
     pure unit

@@ -133,8 +133,7 @@ runUI renderSpec component i = do
     :: forall s f' act ps i' o'
      . Ref Boolean
     -> Ref (DriverState r s f' act ps i' o')
-    -> forall a
-     . (f' a -> Aff (Maybe a))
+    -> (forall a. f' a -> Aff (Maybe a))
   evalDriver disposed ref q =
     liftEffect (Ref.read disposed) >>=
       if _ then pure Nothing
