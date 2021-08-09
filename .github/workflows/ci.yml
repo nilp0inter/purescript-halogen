@@ -15,7 +15,8 @@ jobs:
 
       - uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.14.0-rc5"
+          purescript: "0.14.3"
+          purs-tidy: "latest"
 
       - name: Cache PureScript dependencies
         uses: actions/cache@v2
@@ -25,8 +26,17 @@ jobs:
             .spago
             output
 
-      - run: npm run -s build
+      - name: Build source
+        run: npm run -s build
 
-      - run: npm run -s test
+      - name: Check formatting
+        run: purs-tidy check src test
 
-      - run: npm run -s example-all
+      - name: Run tests
+        run: npm run -s test
+
+      - name: Build examples
+        run: npm run -s example-all
+
+      - name: Check examples formatting
+        run: purs-tidy check examples
