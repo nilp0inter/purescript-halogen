@@ -2,6 +2,7 @@
 !.github
 !.gitignore
 !.eslintrc.json
+!.tidyrc.json
 
 *.lock
 package-lock.json

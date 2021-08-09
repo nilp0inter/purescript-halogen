@@ -75,7 +75,10 @@ element ns =
   where
   coe
     :: (VDom.ElemName -> Array (Prop i) -> Array (VDom.VDom (Array (Prop i)) w) -> VDom.VDom (Array (Prop i)) w)
-    -> VDom.ElemName -> Array (Prop i) -> Array (HTML w i) -> HTML w i
+    -> VDom.ElemName
+    -> Array (Prop i)
+    -> Array (HTML w i)
+    -> HTML w i
   coe = unsafeCoerce
 
 -- | A smart constructor for HTML elements with keyed children.
@@ -84,7 +87,10 @@ keyed ns = coe (\name props children -> VDom.Keyed ns name props children)
   where
   coe
     :: (VDom.ElemName -> Array (Prop i) -> Array (Tuple String (VDom.VDom (Array (Prop i)) w)) -> VDom.VDom (Array (Prop i)) w)
-    -> VDom.ElemName -> Array (Prop i) -> Array (Tuple String (HTML w i)) -> HTML w i
+    -> VDom.ElemName
+    -> Array (Prop i)
+    -> Array (Tuple String (HTML w i))
+    -> HTML w i
   coe = unsafeCoerce
 
 -- | Create a HTML property.
