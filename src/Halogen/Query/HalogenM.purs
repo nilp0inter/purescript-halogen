@@ -139,7 +139,7 @@ query
   -> query a
   -> HalogenM state action slots output m (Maybe a)
 query label p q = HalogenM $ liftF $ ChildQuery $ CQ.mkChildQueryBox $
-  CQ.ChildQuery (\k → maybe (pure Nothing) k <<< Slot.lookup label p) q identity
+  CQ.ChildQuery (\k -> maybe (pure Nothing) k <<< Slot.lookup label p) q identity
 
 -- | Sends a query to all children of a component at a given slot label.
 queryAll
@@ -154,8 +154,8 @@ queryAll label q =
   HalogenM $ liftF $ ChildQuery $ CQ.mkChildQueryBox $
     CQ.ChildQuery (\k -> map catMapMaybes <<< traverse k <<< Slot.slots label) q identity
   where
-  catMapMaybes ∷ forall k v. Ord k ⇒ Map k (Maybe v) -> Map k v
-  catMapMaybes = foldrWithIndex (\k v acc → maybe acc (flip (Map.insert k) acc) v) Map.empty
+  catMapMaybes :: forall k v. Ord k => Map k (Maybe v) -> Map k v
+  catMapMaybes = foldrWithIndex (\k v acc -> maybe acc (flip (Map.insert k) acc) v) Map.empty
 
 -- | The ID value associated with a subscription. Allows the subscription to be
 -- | stopped at a later time.

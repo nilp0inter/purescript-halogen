@@ -33,7 +33,7 @@ component =
     , eval: H.mkEval $ H.defaultEval { handleAction = handleAction }
     }
 
-initialState ∷ forall i. i -> State
+initialState :: forall i. i -> State
 initialState _ = { buttonCheckState: Nothing, buttonMessageState: Nothing }
 
 render :: forall m. State -> H.ComponentHTML Action ChildSlots m

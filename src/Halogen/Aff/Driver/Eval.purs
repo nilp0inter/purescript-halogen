@@ -89,7 +89,7 @@ evalM render initRef (HalogenM hm) = foldFree (go initRef) hm
               pure a
     Subscribe fes k -> do
       sid <- fresh SubscriptionId ref
-      finalize <- liftEffect $ HS.subscribe (fes sid) \act →
+      finalize <- liftEffect $ HS.subscribe (fes sid) \act ->
         handleAff $ evalF render ref (Input.Action act)
       DriverState ({ subscriptions }) <- liftEffect (Ref.read ref)
       liftEffect $ Ref.modify_ (map (M.insert sid finalize)) subscriptions

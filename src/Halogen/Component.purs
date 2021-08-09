@@ -189,7 +189,7 @@ mkEval args = case _ of
   Action action a ->
     args.handleAction action $> a
   Query req f ->
-    unCoyoneda (\g → map (maybe (f unit) g) <<< args.handleQuery) req
+    unCoyoneda (\g -> map (maybe (f unit) g) <<< args.handleQuery) req
 
 -- | A slot for a child component in a component's rendered content.
 data ComponentSlotBox

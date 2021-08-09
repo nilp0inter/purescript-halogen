@@ -146,7 +146,7 @@ ref = (unsafeCoerce :: ((Maybe Element -> Maybe (Input i)) -> Prop (Input i)) ->
 
 -- | Every `IProp lt i` can be cast to some `IProp gt i` as long as `lt` is a
 -- | subset of `gt`.
-expand ∷ ∀ lt gt a i. Row.Union lt a gt ⇒ IProp lt i → IProp gt i
+expand :: forall lt gt a i. Row.Union lt a gt => IProp lt i -> IProp gt i
 expand = unsafeCoerce
 
 alt :: forall r i. String -> IProp (alt :: String | r) i
@@ -220,7 +220,7 @@ target = prop (PropName "target")
 title :: forall r i. String -> IProp (title :: String | r) i
 title = prop (PropName "title")
 
-download :: ∀ r i. String -> IProp (download :: String | r) i
+download :: forall r i. String -> IProp (download :: String | r) i
 download = prop (PropName "download")
 
 method :: forall r i. I.FormMethod -> IProp (method :: I.FormMethod | r) i
