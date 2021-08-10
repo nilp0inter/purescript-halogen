@@ -124,14 +124,12 @@ onFileUpload
    . Unfoldable t
   => (t File -> i)
   -> IProp (onChange :: Event | r) i
-onFileUpload f = do
-  let
-    filesFromTarget =
-      Event.target
-        >=> HTMLInputElement.fromEventTarget
-        >=> (HTMLInputElement.files >>> unsafePerformEffect)
-
-  handler ET.change $ filesFromTarget >>> maybe none items >>> f
+onFileUpload f = handler ET.change $ f <<< maybe none items <<< filesFromTarget
+  where
+  filesFromTarget =
+    Event.target
+      >=> HTMLInputElement.fromEventTarget
+      >=> (HTMLInputElement.files >>> unsafePerformEffect)
 
 onInput :: forall r i. (Event -> i) -> IProp (onInput :: Event | r) i
 onInput = handler ET.input
